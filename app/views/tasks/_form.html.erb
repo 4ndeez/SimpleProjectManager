@@ -21,15 +21,25 @@
     <%= form.text_field :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
+
+  <div>
+    <%= label_tag(:status_new, "new") %>
+    <%= radio_button_tag 'task[status]', 'new', true %>
+    <%= label_tag(:status_in_progress, "in progress") %>
+    <%= radio_button_tag 'task[status]', 'in progress' %>
+    <%= label_tag(:status_done, "done") %>
+    <%= radio_button_tag 'task[status]', 'done' %>
   </div>
+
+  <%= form.hidden_field :project_id %>
+  <!--
 
   <div class="field">
     <%= form.label :project_id %>
     <%= form.number_field :project_id %>
   </div>
+
+-->
 
   <div class="actions">
     <%= form.submit %>
