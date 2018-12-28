@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Projects</h1>
-
 <table>
   <thead>
     <tr>
@@ -22,12 +21,11 @@
         <td><%= project.end_date %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
 
-<%= link_to 'New Project', new_project_path %>
+<h4><%= link_to 'Create new project', new_project_path %></h4>
