@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tasks
+  resources :projects
   devise_for :users
   #get 'persons/profile'
   get 'persons/profile', as: 'user_root'
