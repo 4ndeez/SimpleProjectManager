@@ -1,0 +1,25 @@
+= form_with(model: task, local: true) do |form|
+  - if task.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(task.errors.count, "error")
+        prohibited this task from being saved:
+      %ul
+        - task.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :title
+    = form.text_field :title
+  .field
+    = form.label :description
+    = form.text_field :description
+  %div
+    = label_tag(:status_new, "new")
+    = radio_button_tag 'task[status]', 'new', true
+    = label_tag(:status_in_progress, "in progress")
+    = radio_button_tag 'task[status]', 'in progress'
+    = label_tag(:status_done, "done")
+    = radio_button_tag 'task[status]', 'done'
+  = form.hidden_field :project_id
+  .actions
+    = form.submit

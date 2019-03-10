@@ -1,0 +1,26 @@
+.container
+  = form_with(model: project, local: true) do |form|
+    - if project.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(project.errors.count, "error")
+          prohibited this project from being saved:
+        %ul
+          - project.errors.full_messages.each do |message|
+            %li= message
+    .field
+      = form.label :name
+      = form.text_field :name
+    .field
+      = form.label :summary
+      = form.text_field :summary
+    .field
+      = form.label :start_date
+      = form.date_field :start_date
+    .field
+      = form.label :end_date
+      = form.date_field :end_date
+    .field
+      = form.hidden_field :user_id, value: current_user.id
+    .actions
+      = form.submit

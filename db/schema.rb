@@ -10,7 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_171726) do
+ActiveRecord::Schema.define(version: 2019_03_10_114346) do
+
+  create_table "asignees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "task_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_asignees_on_project_id"
+    t.index ["task_id"], name: "index_asignees_on_task_id"
+    t.index ["user_id"], name: "index_asignees_on_user_id"
+  end
+
+  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.bigint "group_id"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["project_id"], name: "index_members_on_project_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -19,6 +53,12 @@ ActiveRecord::Schema.define(version: 2018_12_27_171726) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -40,8 +80,20 @@ ActiveRecord::Schema.define(version: 2018_12_27_171726) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "role", default: 0
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "asignees", "projects"
+  add_foreign_key "asignees", "tasks"
+  add_foreign_key "asignees", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "projects"
+  add_foreign_key "members", "users"
+  add_foreign_key "projects", "users"
 end

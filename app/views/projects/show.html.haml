@@ -1,0 +1,21 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @project.name
+%p
+  %strong Summary:
+  = @project.summary
+%p
+  %strong Start date:
+  = @project.start_date
+%p
+  %strong End date:
+  = @project.end_date
+%h3 Tasks
+- @tasks.each do |task|
+  %div
+    %strong= task.title
+    %br/
+    %p= task.description
+    %p= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }
+= render partial: 'tasks/form', locals: { task: @task }
